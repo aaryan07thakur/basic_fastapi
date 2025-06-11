@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Query,Form
 from typing import Union
 from enum import Enum
 from pydantic import BaseModel
@@ -59,14 +59,26 @@ async def create_items(item:schemas):
 
 
 
+# @app.get("/items/{item_id}")
+# async def read_items(
+#     item_id: Annotated[int, Path(title="The ID of the item to get")], q: str
+# ):
+#     results = {"item_id": item_id}
+#     if q:
+#         results.update({"q": q})
+#     return results
 
 
 
-@app.get("/items/{item_id}")
-async def read_items(
-    item_id: Annotated[int, Path(title="The ID of the item to get")], q: str
-):
-    results = {"item_id": item_id}
-    if q:
-        results.update({"q": q})
-    return results
+
+
+
+#from data
+@app.post('/form_data')
+async def form_data(username:str):
+    return ({"username": username})
+
+
+
+
+
