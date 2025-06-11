@@ -1,5 +1,5 @@
 from fastapi import FastAPI,Query,Form
-from typing import Union
+from typing import Union, Annotated
 from enum import Enum
 from pydantic import BaseModel
 
@@ -70,13 +70,16 @@ async def create_items(item:schemas):
 
 
 
-
+@app.post("/login/")
+async def login(username: Annotated[str, Form()], password: Annotated[str, Form()]):
+    return {"username": username}
 
 
 #from data
-@app.post('/form_data')
-async def form_data(username:str):
-    return ({"username": username})
+@app.post('/form_data/')
+async def form_data(username:str=Form(), password:str=Form()):    # Form matrai lekhyo vane required hudai n tara
+                                                               #Form() lekhyo vane required hun x 
+    return ({"username": username, "password":password})
 
 
 
