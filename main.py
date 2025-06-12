@@ -11,8 +11,6 @@ class schemas(BaseModel):
 
 
 
-
-
 class ModelName(str, Enum):
     one = "one"
     two = "two"
