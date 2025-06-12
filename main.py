@@ -1,4 +1,4 @@
-from fastapi import FastAPI,Query,Form
+from fastapi import FastAPI,Query,Form,File,UploadFile, HTTPException
 from typing import Union, Annotated
 from enum import Enum
 from pydantic import BaseModel
@@ -80,6 +80,67 @@ async def login(username: Annotated[str, Form()], password: Annotated[str, Form(
 async def form_data(username:str=Form(), password:str=Form()):    # Form matrai lekhyo vane required hudai n tara
                                                                #Form() lekhyo vane required hun x 
     return ({"username": username, "password":password})
+
+
+
+#upload file
+@app.post("/files")
+async def create_file(file:bytes=File()):
+    return ({"file": len(file)})
+
+
+
+#file name 
+@app.post("/uploadfile")
+async def create_upload_file(file:UploadFile):
+    return ({"filename": file.filename})
+
+
+
+@app.post("/uploadfileEx")
+async def create_upload_fileex(filename:UploadFile, file2:bytes=File(), name:str=Form()):
+    return ({"filename": filename.filename, "file":len(file2), "name":name})
+
+
+
+#Error handalling
+@app.get("/Errorhandling")
+async def Errorhandalling(item:int):
+    if item==5:
+        raise HTTPException(status_code=400, detail="item should not be equal to 5")
+    return {"value": item}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
