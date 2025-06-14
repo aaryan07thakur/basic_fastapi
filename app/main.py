@@ -10,8 +10,6 @@ app = FastAPI()
 
 
 
-
-
 @app.post('/User/', response_model=UserResponse)  # ✅ Use Pydantic schema here
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     db_user = User(name=user.name, email=user.email)
