@@ -1,25 +1,12 @@
 # Define UserCreate schema for request validation
-from pydantic import BaseModel
+# from pydantic import BaseModel
 from  database import User, get_db
 from fastapi import FastAPI, Depends,HTTPException
 from sqlalchemy.orm import Session
-from typing import List,Optional
+from typing import List
+from schemas import UserCreate,UserResponse,Userupdate
 
 app = FastAPI()
-
-class UserCreate(BaseModel):
-    name: str
-    email: str
-
-
-class UserResponse(BaseModel):  # for response
-    id: int
-    name: str
-    email: str
-
-    class Config:
-        orm_mode = True  # This is essential for SQLAlchemy compatibility
-
 
 
 
@@ -50,11 +37,6 @@ def ger_user_by_ID(user_id:int, db:Session=Depends(get_db)):
 
 
 
-class Userupdate(BaseModel):
-    name:Optional[str]=None
-    email:Optional[str]=None
-
-
 
 @app.put("/User/{user_id}",response_model=UserResponse)
 def update_user(user_id:int, user:Userupdate, db:Session=Depends(get_db)):
@@ -81,5 +63,4 @@ def delete_user_by_ID(user_id:int,db:Session=Depends(get_db)):
     
     db.delete(db_users)
     db.commit()
-    # db.refresh(db_users)
-    return db_users
+    raise HTTPException(status_code=200,detail="Successfully deleted")
