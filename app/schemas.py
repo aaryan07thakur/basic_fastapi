@@ -5,7 +5,6 @@ class UserCreate(BaseModel):
     name: str
     email: str
 
-
 class UserResponse(BaseModel):  # for response
     id: int
     name: str
@@ -13,8 +12,6 @@ class UserResponse(BaseModel):  # for response
 
     class Config:
         orm_mode = True  # This is essential for SQLAlchemy compatibility
-
-
 
 
 class Userupdate(BaseModel):
