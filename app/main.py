@@ -1,12 +1,43 @@
 # Define UserCreate schema for request validation
 # from pydantic import BaseModel
-from  database import User, get_db
+from database import User, get_db
+from fastapi.middleware.cors import CORSMiddleware  # <-- Import CORS middleware
 from fastapi import FastAPI, Depends,HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from schemas import UserCreate,UserResponse,Userupdate
 
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from fastapi import Request
+from fastapi.staticfiles import StaticFiles
+
 app = FastAPI()
+
+
+# Add these origins (or just "*") to allow requests from frontend
+origins = [
+    "http://localhost:8000",  # <-- This is where your frontend is running
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,   # Allow specific origin(s)
+    allow_credentials=True,
+    allow_methods=["*"],     # Allow all methods
+    allow_headers=["*"],     # Allow all headers
+)
+
+
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
+
+@app.get("/", response_class=HTMLResponse)
+def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
 
 
 

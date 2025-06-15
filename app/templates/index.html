@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User CRUD - FastAPI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto p-8">
+    <h1 class="text-3xl font-bold text-center mb-6">User Management</h1>
+
+    <!-- Form -->
+    <form id="userForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6">
+      <input type="hidden" id="userId" />
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+        <input id="name" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+        <input id="email" type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required />
+      </div>
+      <div class="flex justify-between">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Save
+        </button>
+        <button type="button" id="resetBtn" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+          Reset
+        </button>
+      </div>
+      
+    </form>
+
+    
+    <!-- Search Input -->
+    <div class="mb-4">
+      <input type="text" id="searchInput" placeholder="Search by name..." class="w-full px-4 py-2 border rounded" />
+    </div>
+
+
+    <!-- Users List -->
+    <div id="userList" class="bg-white p-6 rounded shadow-md">
+      <h2 class="text-xl font-bold mb-4">Users</h2>
+      <table class="min-w-full bg-white shadow rounded" id="userTable">
+        <thead class="bg-gray-100 text-left">
+          <tr>
+            <th class="py-2 px-4 border-b">Name</th>
+            <th class="py-2 px-4 border-b">Email</th>
+            <th class="py-2 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="users">
+          <!-- Rows will be inserted here -->
+        </tbody>
+      </table>
+
+    </div>
+    <!-- <ul id="users" class="space-y-4"></ul> -->
+
+  </div>
+
+  <div id="toast" class="fixed bottom-5 right-5 hidden p-4 rounded text-white font-semibold z-50"></div>
+
+
+  <script src="/static/main.js"></script>
+</body>
+</html>
