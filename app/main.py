@@ -1,12 +1,9 @@
-# Define UserCreate schema for request validation
-# from pydantic import BaseModel
 from database import User, get_db
 from fastapi.middleware.cors import CORSMiddleware  # <-- Import CORS middleware
 from fastapi import FastAPI, Depends,HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from schemas import UserCreate,UserResponse,Userupdate
-
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi import Request
